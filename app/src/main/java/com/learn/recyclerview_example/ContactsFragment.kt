@@ -54,6 +54,7 @@ class ContactsFragment : Fragment() {
             Log.d("Moving", "$moving")
             val position = p0.layoutPosition
 
+            // Close item swiped before
             if (lastSwipe != -1 && lastSwipe != position)
                 recyclerViewAdapter.notifyItemChanged(lastSwipe)
 
@@ -78,6 +79,7 @@ class ContactsFragment : Fragment() {
             paint.textSize = 30f
             paint.isAntiAlias = true
 
+            // Fix position for button
             val deleteButtonLeft = view.right - (view.right / 5f)
             val deleteButtonTop = view.top.toFloat()
             val deleteButtonRight = view.right.toFloat() - view.paddingRight
@@ -85,14 +87,18 @@ class ContactsFragment : Fragment() {
 
             Log.d("Delete Button Left X", deleteButtonLeft.toString())
 
+            // Draw a button
             val radius = 15f
-
             val deleteButtonDelete = RectF(deleteButtonLeft, deleteButtonTop, deleteButtonRight, deleteButtonBottom)
             c.drawRoundRect(deleteButtonDelete, radius, radius, paint)
+
+            // Set color for draw text inside button
             paint.color = resources.getColor(R.color.colorWhite)
 
+            // Button text
             val textButton = "Delete"
 
+            // Get width, height of button text
             val rect = Rect()
             paint.getTextBounds(textButton, 0, textButton.length, rect)
 
@@ -118,16 +124,17 @@ class ContactsFragment : Fragment() {
                 moving = false
 
             Log.d("Moving", "$moving")
-
             Log.d("Button Visible", deleteButtonVisible.toString())
 
+            // Check button ís visible
             if (deleteButtonVisible)
                 clickDeleteButtonListener(recyclerView, viewHolder, posSwiped)
 
+            // Item will stop in dX / 5,
             super.onChildDraw(c, recyclerView, viewHolder, dX / 5f, dY, actionState, isCurrentlyActive)
         }
 
-        //config swipe again (start, end, top, down)
+        // Swipe back (start, end, top, down)
         override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
             return makeMovementFlags(0, ItemTouchHelper.START)
         }
