@@ -11,8 +11,6 @@ import kotlinx.android.synthetic.main.item_layout.view.*
 class RecyclerViewAdapter(private val context: Context, private val listContacts: ArrayList<ContactCollection>, private val onClickListener: OnClickListener)
     : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>() {
 
-    private var lastPosition = -1
-
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): MyViewHolder {
         val inflater = LayoutInflater.from(context)
 
@@ -45,11 +43,8 @@ class RecyclerViewAdapter(private val context: Context, private val listContacts
         }
 
         // Animation
-        if (p1 > lastPosition) {
-            val animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_in)
-            view.startAnimation(animation)
-            lastPosition = p1
-        }
+        val animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_in)
+        view.startAnimation(animation)
     }
 
     inner class MyViewHolder(view: View): RecyclerView.ViewHolder(view)

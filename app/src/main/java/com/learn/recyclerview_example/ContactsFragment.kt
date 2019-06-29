@@ -50,16 +50,16 @@ class ContactsFragment : Fragment() {
         }
 
         override fun onSwiped(p0: RecyclerView.ViewHolder, p1: Int) {
-//            moving = false
-//            Log.d("Moving", "$moving")
+            moving = false
+            Log.d("Moving", "$moving")
             val position = p0.layoutPosition
 
             if (lastSwipe != -1 && lastSwipe != position)
                 recyclerViewAdapter.notifyItemChanged(lastSwipe)
 
             lastSwipe = position
-//            deleteButtonVisible = true
-//            Log.d("Button Visible", deleteButtonVisible.toString())
+            deleteButtonVisible = true
+            Log.d("Button Visible", deleteButtonVisible.toString())
         }
 
         override fun onChildDraw(
@@ -75,7 +75,7 @@ class ContactsFragment : Fragment() {
 
             val paint = Paint()
             paint.color = resources.getColor(R.color.colorAccent)
-            paint.textSize = 50f
+            paint.textSize = 30f
             paint.isAntiAlias = true
 
             val deleteButtonLeft = view.right - (view.right / 5f)
@@ -103,7 +103,7 @@ class ContactsFragment : Fragment() {
                 paint
             )
 
-            // this dX run from 0 to `-xxxx` width of screen, dX of item change like this dX
+            // dX of item run from 0 to `-X` width of screen
 
             if (dX <= - deleteButtonLeft) {
                 deleteButtonVisible = true
